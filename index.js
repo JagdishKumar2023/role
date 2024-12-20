@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -27,6 +28,7 @@ app.post("/InputF", async (req, res) => {
     const { name, email, password } = req.body;
 
     const existingUser = await User.findOne({ email });
+
     if (existingUser) {
       return res.json({ message: "User is already exist" });
     }
@@ -34,7 +36,7 @@ app.post("/InputF", async (req, res) => {
     const newUser = await User.create({ name, email, password });
     res.json({ message: "User created successfully", user: newUser });
   } catch (error) {
-    res.json("Enternal server error", error);
+    res.json({ message: "Enternal server error", error });
   }
 });
 
